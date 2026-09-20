@@ -50,28 +50,54 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="flex items-end justify-between">
-          <h2 className="text-xl font-semibold">Model bazası</h2>
-          <Link href="/modeller" className="text-sm font-medium text-brand-500 hover:underline">
-            Hamısına bax →
-          </Link>
-        </div>
-        <p className="mt-1 text-sm text-foreground/60">
-          Hər profil xronik problemlər, təmir xərci təxmini və bazar qiymət
-          aralığı ilə gəlir.
-        </p>
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {profiles.slice(0, 6).map((profile) => (
-            <ModelProfileCard key={profile.id} profile={profile} />
-          ))}
+      <section className="relative overflow-hidden bg-catalog-50">
+        <div className="catalog-pattern pointer-events-none absolute inset-0" />
+        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <div className="flex items-end justify-between">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-catalog-500 text-white shadow-sm">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </span>
+              <h2 className="font-[family-name:var(--font-display)] text-xl font-bold text-catalog-700">
+                Model bazası
+              </h2>
+            </div>
+            <Link href="/modeller" className="text-sm font-medium text-catalog-600 hover:underline">
+              Hamısına bax →
+            </Link>
+          </div>
+          <p className="mt-1 text-sm text-foreground/60">
+            Hər profil xronik problemlər, təmir xərci təxmini və bazar qiymət
+            aralığı ilə gəlir.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {profiles.slice(0, 6).map((profile) => (
+              <ModelProfileCard key={profile.id} profile={profile} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="flex items-end justify-between">
-          <h2 className="text-xl font-semibold">Son elanlar</h2>
-          <Link href="/elanlar" className="text-sm font-medium text-brand-500 hover:underline">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-500 text-white shadow-sm">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M3 13.5 4.8 8a2 2 0 0 1 1.9-1.4h10.6A2 2 0 0 1 19.2 8L21 13.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <rect x="2.5" y="13.5" width="19" height="5" rx="1.6" stroke="currentColor" strokeWidth="1.8" />
+              </svg>
+            </span>
+            <h2 className="text-xl font-bold text-foreground">Son elanlar</h2>
+          </div>
+          <Link href="/elanlar" className="text-sm font-medium text-accent-600 hover:underline">
             Bütün elanlar →
           </Link>
         </div>
