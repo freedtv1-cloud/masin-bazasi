@@ -1,12 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getListingDetail, getAllListings } from "@/lib/queries";
+import { getListingDetail } from "@/lib/queries";
 import { SeverityBadge } from "@/components/SeverityBadge";
 
-export async function generateStaticParams() {
-  const listings = await getAllListings();
-  return listings.map((l) => ({ id: String(l.id) }));
-}
+export const dynamic = "force-dynamic";
 
 function formatAzn(n: number) {
   return `${n.toLocaleString("az-AZ")} ₼`;
