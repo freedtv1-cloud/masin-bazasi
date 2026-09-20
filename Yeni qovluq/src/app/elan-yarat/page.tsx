@@ -1,6 +1,8 @@
 import { getModelProfileOptions } from "@/lib/queries";
 import { createListing } from "@/lib/actions";
 
+export const dynamic = "force-dynamic";
+
 export default async function CreateListingPage() {
   const profiles = await getModelProfileOptions();
 
