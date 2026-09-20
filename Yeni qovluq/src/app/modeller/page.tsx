@@ -1,6 +1,8 @@
 import { searchModelProfiles } from "@/lib/queries";
 import { ModelProfileCard } from "@/components/ModelProfileCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function ModelsPage({
   searchParams,
 }: {
