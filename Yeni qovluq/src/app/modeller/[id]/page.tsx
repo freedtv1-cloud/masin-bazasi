@@ -31,7 +31,7 @@ export default async function ModelProfilePage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <nav className="text-sm text-foreground/50">
-        <Link href="/modeller" className="hover:text-brand-500">
+        <Link href="/modeller" className="hover:text-catalog-600">
           Model bazası
         </Link>{" "}
         / {profile.brandName} {profile.modelName}
@@ -39,10 +39,12 @@ export default async function ModelProfilePage({
 
       <div className="mt-3 flex flex-col justify-between gap-6 sm:flex-row sm:items-start">
         <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-brand-500">
+          <p className="text-sm font-medium uppercase tracking-wide text-catalog-600">
             {profile.brandName}
           </p>
-          <h1 className="text-3xl font-bold">{profile.modelName}</h1>
+          <h1 className="font-[family-name:var(--font-display)] text-3xl font-bold text-catalog-700">
+            {profile.modelName}
+          </h1>
           <p className="mt-1 text-foreground/60">
             {profile.yearFrom}–{profile.yearTo} · {profile.engine}
             {profile.bodyType ? ` · ${profile.bodyType}` : ""}
@@ -51,13 +53,13 @@ export default async function ModelProfilePage({
             <p className="mt-4 max-w-2xl text-foreground/80">{profile.summary}</p>
           )}
         </div>
-        <div className="w-full max-w-xs rounded-xl border border-border-subtle bg-surface p-4 shadow-sm">
+        <div className="w-full max-w-xs rounded-xl border border-catalog-100 bg-surface p-4 shadow-sm">
           <PriceTrend points={prices} />
         </div>
       </div>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold">Xronik problemlər</h2>
+        <h2 className="text-xl font-semibold text-catalog-700">Xronik problemlər</h2>
         <p className="mt-1 text-sm text-foreground/60">
           Forum, xarici baza və AI generasiyası ilə toplanıb — alış öncəsi
           servisdə yoxlatmağı tövsiyə edirik.
@@ -101,7 +103,7 @@ export default async function ModelProfilePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold text-accent-600">
           Bu profilə uyğun elanlar ({listings.length})
         </h2>
         {listings.length === 0 ? (
