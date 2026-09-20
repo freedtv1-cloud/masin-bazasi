@@ -4,12 +4,8 @@ import { getModelProfileDetail } from "@/lib/queries";
 import { SeverityBadge } from "@/components/SeverityBadge";
 import { PriceTrend } from "@/components/PriceTrend";
 import { ListingCard } from "@/components/ListingCard";
-import { getModelProfileOptions } from "@/lib/queries";
 
-export async function generateStaticParams() {
-  const profiles = await getModelProfileOptions();
-  return profiles.map((p) => ({ id: String(p.id) }));
-}
+export const dynamic = "force-dynamic";
 
 const SOURCE_LABEL: Record<string, string> = {
   forum: "Forum",
