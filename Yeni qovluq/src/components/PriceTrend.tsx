@@ -51,7 +51,7 @@ export function PriceTrend({ points }: { points: PricePoint[] }) {
           <p className="text-xs uppercase tracking-wide text-foreground/50">
             Bazar qiyməti aralığı
           </p>
-          <p className="text-2xl font-semibold text-brand-500">
+          <p className="text-2xl font-semibold text-catalog-700">
             {formatAzn(min)}
             <span className="mx-1 text-foreground/40">–</span>
             {formatAzn(max)}
@@ -70,7 +70,7 @@ export function PriceTrend({ points }: { points: PricePoint[] }) {
         <path
           d={path}
           fill="none"
-          stroke="var(--brand-500, #1d3557)"
+          stroke="var(--catalog-600, #0b7a70)"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -81,7 +81,7 @@ export function PriceTrend({ points }: { points: PricePoint[] }) {
             cx={c.x}
             cy={c.y}
             r={i === coords.length - 1 ? 3.5 : 2.5}
-            fill={i === coords.length - 1 ? "#e07a3f" : "#1d3557"}
+            fill={i === coords.length - 1 ? "#e07a3f" : "#0b7a70"}
           />
         ))}
       </svg>
