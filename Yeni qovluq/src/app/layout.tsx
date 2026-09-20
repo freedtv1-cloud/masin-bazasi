@@ -21,10 +21,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <span className="text-base sm:text-lg">MaşınBazası</span>
             </Link>
             <nav className="flex items-center gap-3 text-sm font-medium sm:gap-6">
-              <Link href="/modeller" className="hidden text-foreground/80 hover:text-brand-500 sm:inline">
+              <Link href="/modeller" className="hidden text-foreground/80 hover:text-catalog-600 sm:inline">
                 Model bazası
               </Link>
-              <Link href="/elanlar" className="text-foreground/80 hover:text-brand-500">
+              <Link href="/elanlar" className="text-foreground/80 hover:text-accent-600">
                 Elanlar
               </Link>
               <Link
