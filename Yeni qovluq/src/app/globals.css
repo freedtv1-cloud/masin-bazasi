@@ -11,8 +11,19 @@
   --brand-600: #16293f;
   --brand-700: #101d2c;
 
+  /* Elanlar (bazar) üçün isti, "canlı bazar" vurğusu */
+  --accent-50: #fdf2ea;
+  --accent-100: #fbe2cd;
   --accent-500: #e07a3f;
   --accent-600: #c9612a;
+  --accent-700: #a34e21;
+
+  /* Model bazası (kataloq) üçün sərin, "arayış mənbəyi" vurğusu */
+  --catalog-50: #ecfdf9;
+  --catalog-100: #cef7ec;
+  --catalog-500: #0d9488;
+  --catalog-600: #0b7a70;
+  --catalog-700: #0a5f58;
 
   --surface: #ffffff;
   --surface-muted: #f1f5f9;
@@ -27,13 +38,22 @@
   --color-brand-500: var(--brand-500);
   --color-brand-600: var(--brand-600);
   --color-brand-700: var(--brand-700);
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
   --color-accent-500: var(--accent-500);
   --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-catalog-50: var(--catalog-50);
+  --color-catalog-100: var(--catalog-100);
+  --color-catalog-500: var(--catalog-500);
+  --color-catalog-600: var(--catalog-600);
+  --color-catalog-700: var(--catalog-700);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --color-border-subtle: var(--border-subtle);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Georgia", "Iowan Old Style", "Palatino Linotype", serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +65,10 @@
     --border-subtle: #223050;
     --brand-50: #16233a;
     --brand-100: #1c2c48;
+    --accent-50: #241a12;
+    --accent-100: #382415;
+    --catalog-50: #0c211e;
+    --catalog-100: #113029;
   }
 }
 
@@ -62,4 +86,41 @@ body {
   padding: 0.15rem 0.6rem;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+/* Model bazası — kataloq/arayış hissi üçün incə nöqtəli fon naxışı */
+.catalog-pattern {
+  background-image: radial-gradient(
+    var(--catalog-600) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+  opacity: 0.06;
+}
+
+/* Elanlar — canlı bazar hissi üçün isti diaqonal naxış */
+.market-pattern {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--accent-600) 0px,
+    var(--accent-600) 1px,
+    transparent 1px,
+    transparent 14px
+  );
+  opacity: 0.07;
+}
+
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-rise {
+  animation: card-rise 0.35s ease-out both;
 }
