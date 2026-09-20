@@ -8,7 +8,8 @@ export default async function CreateListingPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
-      <h1 className="text-2xl font-bold">Elan yerləşdir</h1>
+      <p className="text-xs font-semibold uppercase tracking-wider text-accent-600">Yeni elan</p>
+      <h1 className="mt-1 text-3xl font-bold text-foreground">Elan yerləşdir</h1>
       <p className="mt-1 text-sm text-foreground/60">
         Model seçdikdən sonra sistem həmin profilin tanınmış problemlərini və
         bazar qiymət aralığını elanınızla birlikdə göstərəcək.
@@ -23,7 +24,7 @@ export default async function CreateListingPage() {
             id="modelProfileId"
             name="modelProfileId"
             required
-            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
           >
             <option value="">Seçin...</option>
             {profiles.map((p) => (
@@ -46,7 +47,7 @@ export default async function CreateListingPage() {
               required
               min={1970}
               max={new Date().getFullYear()}
-              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
             />
           </div>
           <div>
@@ -59,7 +60,7 @@ export default async function CreateListingPage() {
               type="number"
               required
               min={0}
-              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
             />
           </div>
         </div>
@@ -72,7 +73,7 @@ export default async function CreateListingPage() {
             <select
               id="condition"
               name="condition"
-              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
             >
               <option value="əla">əla</option>
               <option value="yaxşı">yaxşı</option>
@@ -90,7 +91,7 @@ export default async function CreateListingPage() {
               type="number"
               required
               min={0}
-              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+              className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
             />
           </div>
         </div>
@@ -104,7 +105,7 @@ export default async function CreateListingPage() {
             name="city"
             type="text"
             required
-            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
           />
         </div>
 
@@ -116,7 +117,7 @@ export default async function CreateListingPage() {
             id="description"
             name="description"
             rows={4}
-            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
           />
         </div>
 
@@ -132,7 +133,7 @@ export default async function CreateListingPage() {
                 name="sellerName"
                 type="text"
                 required
-                className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+                className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -146,7 +147,7 @@ export default async function CreateListingPage() {
                   type="tel"
                   required
                   placeholder="+994 xx xxx xx xx"
-                  className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+                  className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
                 />
               </div>
               <div>
@@ -157,7 +158,7 @@ export default async function CreateListingPage() {
                   id="sellerCity"
                   name="sellerCity"
                   type="text"
-                  className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-brand-500"
+                  className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
                 />
               </div>
             </div>
