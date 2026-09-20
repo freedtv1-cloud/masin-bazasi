@@ -3,6 +3,8 @@ import { getModelProfileCards, getAllListings } from "@/lib/queries";
 import { ModelProfileCard } from "@/components/ModelProfileCard";
 import { ListingCard } from "@/components/ListingCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [profiles, listings] = await Promise.all([
     getModelProfileCards(),
