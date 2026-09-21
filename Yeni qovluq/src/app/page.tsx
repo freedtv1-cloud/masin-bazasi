@@ -1,24 +1,39 @@
 import Link from "next/link";
-import { getModelProfileCards, getAllListings } from "@/lib/queries";
+import {
+  getModelProfileCards,
+  getAllListings,
+  getProfilePriceStats,
+  getAllListingPhotos,
+} from "@/lib/queries";
 import { ModelProfileCard } from "@/components/ModelProfileCard";
 import { ListingCard } from "@/components/ListingCard";
+import { isGoodDeal } from "@/lib/deal";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [profiles, listings] = await Promise.all([
+  const [profiles, listings, priceStats, photos] = await Promise.all([
     getModelProfileCards(),
     getAllListings(),
+    getProfilePriceStats(),
+    getAllListingPhotos(),
   ]);
 
   const recentListings = listings.slice(0, 4);
+  const avgPriceByProfile = Object.fromEntries(
+    priceStats.map((s) => [s.modelProfileId, s.avgPrice])
+  );
+  const coverPhotoByListing: Record<number, string> = {};
+  for (const p of photos) {
+    if (!(p.listingId in coverPhotoByListing)) coverPhotoByListing[p.listingId] = p.url;
+  }
 
   return (
     <div>
       <section className="bg-brand-500">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-100">
-            Sadəcə elan yox
+            Sadəcə elanlar deyil
           </p>
           <h1 className="mt-2 max-w-2xl text-3xl font-bold text-white sm:text-4xl">
             Maşın almazdan əvvəl bilməli olduğunuz hər şey — bir yerdə
@@ -69,8 +84,8 @@ export default async function HomePage() {
             </Link>
           </div>
           <p className="mt-1 text-sm text-foreground/60">
-            Hər profil xronik problemlər, təmir xərci təxmini və bazar qiymət
-            aralığı ilə gəlir.
+            Hər profilin öz xronik problemləri, təmir xərci təxmini və bazar
+            qiymət aralığı var.
           </p>
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {profiles.slice(0, 6).map((profile) => (
@@ -103,7 +118,12 @@ export default async function HomePage() {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {recentListings.map((listing) => (
-            <ListingCard key={listing.id} listing={listing} />
+            <ListingCard
+              key={listing.id}
+              listing={listing}
+              goodDeal={isGoodDeal(listing.price, avgPriceByProfile[listing.modelProfileId])}
+              coverPhotoUrl={coverPhotoByListing[listing.id] ?? null}
+            />
           ))}
         </div>
       </section>
