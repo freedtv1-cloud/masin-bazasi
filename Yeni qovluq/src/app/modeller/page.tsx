@@ -1,7 +1,16 @@
-import { searchModelProfiles } from "@/lib/queries";
+import type { Metadata } from "next";
+import { getCascadeCatalog, searchModelProfiles } from "@/lib/queries";
 import { ModelProfileCard } from "@/components/ModelProfileCard";
+import { CascadeSelector } from "@/components/CascadeSelector";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Model bazası — marka, model, il və mühərrik üzrə axtarış",
+  description:
+    "Marka → model → il → mühərrik seçərək istənilən avtomobil profilinin xronik problemlərinə və bazar qiymətinə baxın.",
+  alternates: { canonical: "/modeller" },
+};
 
 export default async function ModelsPage({
   searchParams,
@@ -9,50 +18,63 @@ export default async function ModelsPage({
   searchParams: Promise<{ q?: string }>;
 }) {
   const { q = "" } = await searchParams;
-  const profiles = await searchModelProfiles(q);
+  const [catalog, profiles] = await Promise.all([
+    getCascadeCatalog(),
+    q.trim() ? searchModelProfiles(q) : Promise.resolve([]),
+  ]);
 
   return (
     <div className="relative overflow-hidden">
       <div className="catalog-pattern pointer-events-none absolute inset-0 h-64" />
       <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-catalog-600">
-          Arayış kataloqu
+          Model kataloqu
         </p>
         <h1 className="mt-1 font-[family-name:var(--font-display)] text-3xl font-bold text-catalog-700">
           Model bazası
         </h1>
         <p className="mt-1 text-sm text-foreground/60">
           Marka, model, xronik problemlər və bazar qiyməti — alış qərarından
-          əvvəl bura baxın.
+          əvvəl bura baxın. Aşağıda marka, model, il və mühərrik seçərək
+          birbaşa profilə keçin.
         </p>
 
-        <form action="/modeller" method="GET" className="mt-6 flex max-w-md gap-2">
-          <input
-            type="text"
-            name="q"
-            defaultValue={q}
-            placeholder="Marka və ya model axtarın"
-            className="flex-1 rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-catalog-500"
-          />
-          <button
-            type="submit"
-            className="rounded-lg bg-catalog-500 px-4 py-2 font-medium text-white hover:bg-catalog-600"
-          >
-            Axtar
-          </button>
-        </form>
+        <CascadeSelector catalog={catalog} />
 
-        {profiles.length === 0 ? (
-          <p className="mt-10 text-foreground/60">
-            &ldquo;{q}&rdquo; üzrə nəticə tapılmadı.
+        <div className="mt-10 border-t border-border-subtle pt-8">
+          <p className="text-sm font-medium text-foreground/70">
+            Və ya birbaşa axtarın
           </p>
-        ) : (
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {profiles.map((profile) => (
-              <ModelProfileCard key={profile.id} profile={profile} />
-            ))}
-          </div>
-        )}
+          <form action="/modeller" method="GET" className="mt-3 flex max-w-md gap-2">
+            <input
+              type="text"
+              name="q"
+              defaultValue={q}
+              placeholder="Marka və ya model axtarın"
+              className="flex-1 rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-catalog-500"
+            />
+            <button
+              type="submit"
+              className="rounded-lg bg-catalog-500 px-4 py-2 font-medium text-white hover:bg-catalog-600"
+            >
+              Axtar
+            </button>
+          </form>
+
+          {q.trim() && (
+            profiles.length === 0 ? (
+              <p className="mt-8 text-foreground/60">
+                &ldquo;{q}&rdquo; üzrə nəticə tapılmadı.
+              </p>
+            ) : (
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {profiles.map((profile) => (
+                  <ModelProfileCard key={profile.id} profile={profile} />
+                ))}
+              </div>
+            )
+          )}
+        </div>
       </div>
     </div>
   );
