@@ -11,8 +11,8 @@ export default async function CreateListingPage() {
       <p className="text-xs font-semibold uppercase tracking-wider text-accent-600">Yeni elan</p>
       <h1 className="mt-1 text-3xl font-bold text-foreground">Elan yerləşdir</h1>
       <p className="mt-1 text-sm text-foreground/60">
-        Model seçdikdən sonra sistem həmin profilin tanınmış problemlərini və
-        bazar qiymət aralığını elanınızla birlikdə göstərəcək.
+        Model seçdikdən sonra elanınızın yanında həmin profilin tanınmış
+        problemlərini və bazar qiymət aralığını da göstərəcəyik.
       </p>
 
       <form action={createListing} className="mt-8 space-y-5">
@@ -75,10 +75,10 @@ export default async function CreateListingPage() {
               name="condition"
               className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 outline-none focus:border-accent-500"
             >
-              <option value="əla">əla</option>
-              <option value="yaxşı">yaxşı</option>
-              <option value="orta">orta</option>
-              <option value="təmirə ehtiyaclı">təmirə ehtiyaclı</option>
+              <option value="əla">Əla</option>
+              <option value="yaxşı">Yaxşı</option>
+              <option value="orta">Orta</option>
+              <option value="təmirə ehtiyaclı">Təmirə ehtiyaclı</option>
             </select>
           </div>
           <div>
@@ -121,6 +121,23 @@ export default async function CreateListingPage() {
           />
         </div>
 
+        <div>
+          <label className="block text-sm font-medium" htmlFor="photoUrls">
+            Şəkil linkləri
+          </label>
+          <p className="mt-0.5 text-xs text-foreground/50">
+            Hər sətirdə bir link (istəsəniz bir neçə). İlk link üz şəkli kimi
+            görünəcək.
+          </p>
+          <textarea
+            id="photoUrls"
+            name="photoUrls"
+            rows={3}
+            placeholder={"https://.../sekil1.jpg\nhttps://.../sekil2.jpg"}
+            className="mt-1 w-full rounded-lg border border-border-subtle bg-surface px-3 py-2 font-mono text-xs outline-none focus:border-accent-500"
+          />
+        </div>
+
         <fieldset className="rounded-lg border border-border-subtle p-4">
           <legend className="px-1 text-sm font-medium">Əlaqə məlumatı</legend>
           <div className="space-y-4">
@@ -152,7 +169,7 @@ export default async function CreateListingPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium" htmlFor="sellerCity">
-                  Şəhər (satıcı)
+                  Sizin şəhəriniz
                 </label>
                 <input
                   id="sellerCity"
