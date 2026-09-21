@@ -1,5 +1,17 @@
 import Link from "next/link";
 import type { ModelProfileCard as ModelProfileCardType } from "@/lib/queries";
+import { RatingGaugeRow, scoreTier, TIER_BADGE_CLASS } from "@/components/RatingGauge";
+
+function overallScore(profile: ModelProfileCardType): number | null {
+  const scores = [
+    profile.safetyScore,
+    profile.reliabilityScore,
+    profile.valueScore,
+    profile.performanceScore,
+  ].filter((s): s is number => s !== null);
+  if (scores.length === 0) return null;
+  return Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10;
+}
 
 function formatAzn(n: number) {
   return `${n.toLocaleString("az-AZ")} ₼`;
@@ -15,6 +27,8 @@ const BODY_TYPE_LABEL: Record<string, string> = {
 };
 
 export function ModelProfileCard({ profile }: { profile: ModelProfileCardType }) {
+  const overall = overallScore(profile);
+
   return (
     <Link
       href={`/modeller/${profile.id}`}
@@ -31,20 +45,30 @@ export function ModelProfileCard({ profile }: { profile: ModelProfileCardType })
               {profile.modelName}
             </h3>
           </div>
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/15 text-white">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path
-                d="M3 13.5 4.8 8a2 2 0 0 1 1.9-1.4h10.6A2 2 0 0 1 19.2 8L21 13.5"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <rect x="2.5" y="13.5" width="19" height="5" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
-              <circle cx="7" cy="18.5" r="1.4" fill="currentColor" />
-              <circle cx="17" cy="18.5" r="1.4" fill="currentColor" />
-            </svg>
-          </span>
+          <div className="flex shrink-0 items-center gap-1.5">
+            {overall !== null && (
+              <span
+                className={`flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-xs font-bold ${TIER_BADGE_CLASS[scoreTier(overall)]}`}
+                title={`Ümumi bal: 10 üzərindən ${overall}`}
+              >
+                {overall}
+              </span>
+            )}
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M3 13.5 4.8 8a2 2 0 0 1 1.9-1.4h10.6A2 2 0 0 1 19.2 8L21 13.5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <rect x="2.5" y="13.5" width="19" height="5" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="7" cy="18.5" r="1.4" fill="currentColor" />
+                <circle cx="17" cy="18.5" r="1.4" fill="currentColor" />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -58,6 +82,19 @@ export function ModelProfileCard({ profile }: { profile: ModelProfileCardType })
               {BODY_TYPE_LABEL[profile.bodyType] ?? profile.bodyType}
             </span>
           )}
+        </div>
+
+        <div className="mt-3">
+          <RatingGaugeRow
+            scores={{
+              safetyScore: profile.safetyScore,
+              reliabilityScore: profile.reliabilityScore,
+              valueScore: profile.valueScore,
+              performanceScore: profile.performanceScore,
+            }}
+            size={40}
+            compact
+          />
         </div>
 
         <div className="mt-4 flex items-center justify-between border-t border-border-subtle pt-3 text-sm">
