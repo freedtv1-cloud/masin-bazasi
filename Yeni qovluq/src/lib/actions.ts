@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { sellers, listings } from "@/db/schema";
+import { sellers, listings, listingPhotos } from "@/db/schema";
 
 const CONDITIONS = ["əla", "yaxşı", "orta", "təmirə ehtiyaclı"] as const;
 
@@ -19,6 +19,11 @@ export async function createListing(formData: FormData) {
   const price = Number(formData.get("price"));
   const city = String(formData.get("city") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
+  const photoUrls = String(formData.get("photoUrls") ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => /^https?:\/\/.+/i.test(line))
+    .slice(0, 8);
 
   if (
     !modelProfileId ||
@@ -65,6 +70,16 @@ export async function createListing(formData: FormData) {
       status: "aktiv",
     })
     .returning();
+
+  if (photoUrls.length > 0) {
+    await db.insert(listingPhotos).values(
+      photoUrls.map((url, i) => ({
+        listingId: listing.id,
+        url,
+        sortOrder: i,
+      }))
+    );
+  }
 
   revalidatePath("/elanlar");
   revalidatePath("/");
